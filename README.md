@@ -63,5 +63,5 @@ A major technical achievement of this platform is the custom engagement tracking
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/yourusername/stellarmail-marketing-platform.git](https://github.com/yourusername/stellarmail-marketing-platform.git)
+git clone [https://github.com/Bottu-Dinesh/stellarmail-marketing-platform.git](https://github.com/Bottu-Dinesh/stellarmail-marketing-platform.git)
 cd stellarmail-marketing-platform
