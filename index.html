@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,350 +10,577 @@
     <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
-        .ql-container { min-height: 160px; font-size: 14px; }
-        .cluster-root { display: none; }
-        .cluster-root.is-active { display: block; animation: sectionIn 0.15s ease-out; }
-        @keyframes sectionIn { from { opacity: 0.85; } to { opacity: 1; } }
-        .hub-panel { display: none; }
-        .hub-panel.is-open { display: block; }
-        .wiz-step { display: none; }
-        .wiz-step.is-open { display: block; }
-        .nav-btn { transition: color 0.12s ease, background-color 0.12s ease, transform 0.12s ease; }
-        .nav-btn:active { transform: scale(0.98); }
-        #chart-reports-wrap, #chart-dash-bar-wrap, #chart-dash-rate-wrap { position: relative; width: 100%; max-width: 100%; min-height: 200px; }
-        @media (min-width: 640px) { #chart-reports-wrap, #chart-dash-bar-wrap { min-height: 260px; } }
+        .ql-container {
+            min-height: 160px;
+            font-size: 14px;
+        }
+
+        .cluster-root {
+            display: none;
+        }
+
+        .cluster-root.is-active {
+            display: block;
+            animation: sectionIn 0.15s ease-out;
+        }
+
+        @keyframes sectionIn {
+            from {
+                opacity: 0.85;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hub-panel {
+            display: none;
+        }
+
+        .hub-panel.is-open {
+            display: block;
+        }
+
+        .wiz-step {
+            display: none;
+        }
+
+        .wiz-step.is-open {
+            display: block;
+        }
+
+        .nav-btn {
+            transition: color 0.12s ease, background-color 0.12s ease, transform 0.12s ease;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.98);
+        }
+
+        #chart-reports-wrap,
+        #chart-dash-bar-wrap,
+        #chart-dash-rate-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            min-height: 200px;
+        }
+
+        @media (min-width: 640px) {
+
+            #chart-reports-wrap,
+            #chart-dash-bar-wrap {
+                min-height: 260px;
+            }
+        }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen font-sans text-slate-800">
 
-    <div id="view-login" class="min-h-screen flex items-center justify-center p-6">
-        <div class="w-full max-w-md bg-white rounded-3xl shadow-xl border border-slate-200 p-10">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-black">S</div>
-                <div>
-                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Secure Access</p>
-                    <h1 class="text-2xl font-black text-slate-900">StellarMail</h1>
-                    <p class="text-xs text-slate-500 mt-1">Infinite Reach. Precision Delivery.</p>
-                </div>
+<div id="view-login" class="min-h-screen flex items-center justify-center p-6 bg-slate-50">
+    <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+        <div class="flex flex-col md:flex-row">
+
+            <div
+                class="bg-indigo-600 p-10 text-white flex flex-col justify-center items-center md:items-start md:w-5/12">
+                <div
+                    class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-indigo-600 font-black text-3xl mb-6 shadow-xl">
+                    S</div>
+                <p class="text-xs font-bold text-indigo-200 uppercase tracking-widest">Secure Access</p>
+                <h1 class="text-3xl font-black tracking-tight">StellarMail</h1>
+                <p class="text-sm text-indigo-100 mt-2 opacity-80">Infinite Reach.<br>Precision Delivery.</p>
             </div>
-            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Email</label>
-            <input id="login-email" type="email" class="w-full p-3 rounded-xl border border-slate-200 mb-4 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="admin@example.com">
-            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Password</label>
-            <input id="login-password" type="password" class="w-full p-3 rounded-xl border border-slate-200 mb-6 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Password">
-            <p id="login-error" class="text-sm text-red-600 mb-4 hidden"></p>
-            <button type="button" onclick="doLogin()" class="w-full bg-slate-900 text-white font-black py-3 rounded-xl hover:bg-black transition">Sign in</button>
+
+            <div class="p-10 flex-grow bg-white">
+                <div class="mb-8">
+                    <h2 class="text-xl font-black text-slate-900">Sign in</h2>
+                    <p class="text-sm text-slate-500">Welcome back! Please enter your details.</p>
+                </div>
+
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Email</label>
+                <input id="login-email" type="email" value="admin@example.com"
+                    class="w-full p-3 rounded-xl border border-slate-200 mb-4 focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
+
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Password</label>
+                <input id="login-password" type="text" value="admin123"
+                    class="w-full p-3 rounded-xl border border-slate-200 mb-6 focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
+
+                <p id="login-error" class="text-sm text-red-600 mb-4 hidden"></p>
+
+                <button type="button" onclick="doLogin()"
+                    class="w-full bg-slate-900 text-white font-black py-3 rounded-xl hover:bg-black shadow-lg shadow-slate-200 transition-all active:scale-[0.98]">
+                    Sign in
+                </button>
+
+                <p class="text-center text-[10px] text-slate-400 mt-6 italic">
+                    Demo Mode: Use pre-filled credentials to enter.
+                </p>
+            </div>
         </div>
     </div>
+</div>
 
-    <div id="view-app" class="hidden min-h-screen flex">
-        <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black/40 z-30 md:hidden" onclick="closeMobileNav()" aria-hidden="true"></div>
-        <aside id="app-sidebar" class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-slate-900 min-h-screen p-6 text-slate-400 flex flex-col shadow-2xl shrink-0 -translate-x-full md:translate-x-0 transition-transform duration-150 ease-out">
-            <div class="text-white font-black text-lg mb-8 px-2 flex items-center gap-2">
-                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-sm">S</div>
-                StellarMail
+<div id="view-app" class="hidden min-h-screen flex">
+    <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black/40 z-30 md:hidden" onclick="closeMobileNav()"
+        aria-hidden="true"></div>
+    <aside id="app-sidebar"
+        class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-slate-900 min-h-screen p-6 text-slate-400 flex flex-col shadow-2xl shrink-0 -translate-x-full md:translate-x-0 transition-transform duration-150 ease-out">
+        <div class="text-white font-black text-lg mb-8 px-2 flex items-center gap-2">
+            <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-sm">S</div>
+            StellarMail
+        </div>
+        <nav class="space-y-1 text-sm font-semibold flex-1 overflow-y-auto">
+            <button type="button" data-section="cluster-data"
+                class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-slate-400">Data
+                Hub</button>
+            <button type="button" data-section="cluster-workflow"
+                class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-slate-400">Workflow
+                Hub</button>
+            <button type="button" data-section="cluster-analytics"
+                class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-white bg-slate-800">Analytics
+                Hub</button>
+            <button type="button" data-section="cluster-studio"
+                class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-slate-400">Studio
+                &amp; Settings</button>
+            <button type="button" data-section="cluster-specialty"
+                class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-slate-400">Specialty</button>
+            <button type="button" data-section="cluster-system"
+                class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-slate-400">System</button>
+        </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-w-0">
+        <header
+            class="bg-white border-b border-slate-200 px-4 sm:px-6 py-4 flex justify-between items-center sticky top-0 z-20 gap-3">
+            <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                <button type="button"
+                    class="md:hidden p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 shrink-0"
+                    onclick="toggleMobileNav()" aria-label="Open menu">Menu</button>
+                <div
+                    class="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest truncate">
+                    <span class="h-2 w-2 rounded-full bg-emerald-500 shrink-0"></span>
+                    <span class="truncate">Gmail SMTP Online</span>
+                </div>
             </div>
-            <nav class="space-y-1 text-sm font-semibold flex-1 overflow-y-auto">
-                <button type="button" data-section="cluster-data" class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-slate-400">Data Hub</button>
-                <button type="button" data-section="cluster-workflow" class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-slate-400">Workflow Hub</button>
-                <button type="button" data-section="cluster-analytics" class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-white bg-slate-800">Analytics Hub</button>
-                <button type="button" data-section="cluster-studio" class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-slate-400">Studio &amp; Settings</button>
-                <button type="button" data-section="cluster-specialty" class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-slate-400">Specialty</button>
-                <button type="button" data-section="cluster-system" class="nav-btn w-full text-left px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white text-slate-400">System</button>
-            </nav>
-        </aside>
+            <div class="flex items-center gap-4">
+                <div class="text-right hidden sm:block">
+                    <p id="hdr-name" class="text-xs font-black text-slate-800">—</p>
+                    <p id="hdr-role" class="text-[10px] text-indigo-600 font-bold uppercase">—</p>
+                </div>
+                <button type="button" onclick="doLogout()"
+                    class="text-xs font-bold text-slate-600 border border-slate-200 px-4 py-2 rounded-xl hover:bg-slate-50">Logout</button>
+            </div>
+        </header>
 
-        <div class="flex-1 flex flex-col min-w-0">
-            <header class="bg-white border-b border-slate-200 px-4 sm:px-6 py-4 flex justify-between items-center sticky top-0 z-20 gap-3">
-                <div class="flex items-center gap-2 sm:gap-3 min-w-0">
-                    <button type="button" class="md:hidden p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 shrink-0" onclick="toggleMobileNav()" aria-label="Open menu">Menu</button>
-                    <div class="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest truncate">
-                        <span class="h-2 w-2 rounded-full bg-emerald-500 shrink-0"></span>
-                        <span class="truncate">Gmail SMTP Online</span>
+        <main class="flex-1 p-6 lg:p-8 max-w-6xl w-full mx-auto">
+
+            <!-- A: Data Hub -->
+            <section id="section-cluster-data" class="cluster-root section-panel">
+                <h2 class="text-2xl font-black text-slate-900 mb-4">Data Hub</h2>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button type="button"
+                        class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white"
+                        data-hub="data" data-tab="lists">Contact Lists</button>
+                    <button type="button"
+                        class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700"
+                        data-hub="data" data-tab="audience">Audience</button>
+                    <button type="button"
+                        class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700"
+                        data-hub="data" data-tab="suppression">Suppression</button>
+                    <button type="button"
+                        class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700"
+                        data-hub="data" data-tab="users">Users</button>
+                </div>
+                <div id="hub-data-lists" class="hub-panel is-open">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button type="button" onclick="loadListSummary()"
+                            class="px-4 py-2 rounded-xl bg-slate-100 font-bold text-sm hover:bg-slate-200">Refresh</button>
+                    </div>
+                    <div id="dt-lists-grid" class="grid sm:grid-cols-2 gap-4"></div>
+                </div>
+                <div id="hub-data-audience" class="hub-panel">
+                    <div class="flex flex-col sm:flex-row gap-3 mb-4">
+                        <input id="contacts-search" type="search" placeholder="Search…"
+                            class="flex-1 p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none"
+                            oninput="debouncedLoadContacts()">
+                        <select id="contacts-list-filter"
+                            class="sm:w-56 p-3 rounded-xl border border-slate-200 bg-white"
+                            onchange="loadContactsTable()">
+                            <option value="">All lists</option>
+                        </select>
+                        <select id="contacts-status-filter"
+                            class="sm:w-44 p-3 rounded-xl border border-slate-200 bg-white"
+                            onchange="loadContactsTable()">
+                            <option value="">All statuses</option>
+                            <option value="active">Active</option>
+                            <option value="unsubscribed">Unsubscribed</option>
+                            <option value="bounced">Bounced</option>
+                        </select>
+                        <button type="button" onclick="exportAudienceCsv()"
+                            class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-sm hover:bg-indigo-700">Export
+                            CSV</button>
+                        <button type="button" onclick="loadContactsTable()"
+                            class="px-4 py-2 rounded-xl bg-slate-100 font-bold text-sm">Refresh</button>
+                    </div>
+                    <div class="overflow-x-auto rounded-xl border border-slate-200">
+                        <table class="w-full text-left text-sm min-w-[520px]">
+                            <thead class="bg-slate-50 text-[10px] font-black uppercase text-slate-500">
+                                <tr>
+                                    <th class="px-4 py-3">Email</th>
+                                    <th class="px-4 py-3">Name</th>
+                                    <th class="px-4 py-3">List</th>
+                                    <th class="px-4 py-3">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contacts-table-body" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                    <p id="contacts-table-meta" class="text-xs text-slate-400 mt-3"></p>
+                </div>
+                <div id="hub-data-suppression" class="hub-panel">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <input id="sup-search" type="search" placeholder="Search…"
+                            class="flex-1 min-w-[200px] p-3 rounded-xl border border-slate-200"
+                            oninput="debouncedLoadSuppression()">
+                        <button type="button" onclick="loadSuppressionTable()"
+                            class="px-4 py-2 rounded-xl bg-slate-100 font-bold text-sm">Refresh</button>
+                    </div>
+                    <div class="overflow-x-auto rounded-xl border border-slate-200">
+                        <table class="w-full text-sm">
+                            <thead class="bg-slate-50 text-[10px] font-black uppercase text-slate-500">
+                                <tr>
+                                    <th class="px-4 py-3">Email</th>
+                                    <th class="px-4 py-3">Status</th>
+                                    <th class="px-4 py-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sup-table-body"></tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="flex items-center gap-4">
-                    <div class="text-right hidden sm:block">
-                        <p id="hdr-name" class="text-xs font-black text-slate-800">—</p>
-                        <p id="hdr-role" class="text-[10px] text-indigo-600 font-bold uppercase">—</p>
-                    </div>
-                    <button type="button" onclick="doLogout()" class="text-xs font-bold text-slate-600 border border-slate-200 px-4 py-2 rounded-xl hover:bg-slate-50">Logout</button>
-                </div>
-            </header>
-
-            <main class="flex-1 p-6 lg:p-8 max-w-6xl w-full mx-auto">
-
-                <!-- A: Data Hub -->
-                <section id="section-cluster-data" class="cluster-root section-panel">
-                    <h2 class="text-2xl font-black text-slate-900 mb-4">Data Hub</h2>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <button type="button" class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white" data-hub="data" data-tab="lists">Contact Lists</button>
-                        <button type="button" class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700" data-hub="data" data-tab="audience">Audience</button>
-                        <button type="button" class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700" data-hub="data" data-tab="suppression">Suppression</button>
-                        <button type="button" class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700" data-hub="data" data-tab="users">Users</button>
-                    </div>
-                    <div id="hub-data-lists" class="hub-panel is-open">
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <button type="button" onclick="loadListSummary()" class="px-4 py-2 rounded-xl bg-slate-100 font-bold text-sm hover:bg-slate-200">Refresh</button>
-                        </div>
-                        <div id="dt-lists-grid" class="grid sm:grid-cols-2 gap-4"></div>
-                    </div>
-                    <div id="hub-data-audience" class="hub-panel">
-                        <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                            <input id="contacts-search" type="search" placeholder="Search…" class="flex-1 p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none" oninput="debouncedLoadContacts()">
-                            <select id="contacts-list-filter" class="sm:w-56 p-3 rounded-xl border border-slate-200 bg-white" onchange="loadContactsTable()">
-                                <option value="">All lists</option>
-                            </select>
-                            <select id="contacts-status-filter" class="sm:w-44 p-3 rounded-xl border border-slate-200 bg-white" onchange="loadContactsTable()">
-                                <option value="">All statuses</option>
-                                <option value="active">Active</option>
-                                <option value="unsubscribed">Unsubscribed</option>
-                                <option value="bounced">Bounced</option>
-                            </select>
-                            <button type="button" onclick="exportAudienceCsv()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-sm hover:bg-indigo-700">Export CSV</button>
-                            <button type="button" onclick="loadContactsTable()" class="px-4 py-2 rounded-xl bg-slate-100 font-bold text-sm">Refresh</button>
+                <div id="hub-data-users" class="hub-panel">
+                    <p id="users-admin-only" class="text-sm text-slate-500 mb-4 hidden">Admin access
+                        required for user management.</p>
+                    <div id="users-panel">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 mb-6">
+                            <h3 class="text-sm font-black text-slate-400 uppercase mb-3">Invite user</h3>
+                            <div class="grid md:grid-cols-3 gap-3">
+                                <input id="invite-email" type="email" placeholder="Email"
+                                    class="p-3 rounded-xl border border-slate-200">
+                                <select id="invite-role" class="p-3 rounded-xl border border-slate-200 bg-white">
+                                    <option value="Manager">Manager</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                                <button type="button" onclick="inviteUser()"
+                                    class="bg-indigo-600 text-white font-black py-3 rounded-xl hover:bg-indigo-700">Invite</button>
+                            </div>
+                            <p id="invite-result" class="text-xs text-slate-500 mt-2"></p>
                         </div>
                         <div class="overflow-x-auto rounded-xl border border-slate-200">
-                            <table class="w-full text-left text-sm min-w-[520px]">
-                                <thead class="bg-slate-50 text-[10px] font-black uppercase text-slate-500"><tr>
-                                    <th class="px-4 py-3">Email</th><th class="px-4 py-3">Name</th><th class="px-4 py-3">List</th><th class="px-4 py-3">Status</th>
-                                </tr></thead>
-                                <tbody id="contacts-table-body" class="divide-y divide-slate-100"></tbody>
+                            <table class="w-full text-sm">
+                                <thead class="bg-slate-50 text-[10px] font-black uppercase">
+                                    <tr>
+                                        <th class="px-4 py-3">Email</th>
+                                        <th class="px-4 py-3">Role</th>
+                                        <th class="px-4 py-3">Active</th>
+                                        <th class="px-4 py-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table-body"></tbody>
                             </table>
                         </div>
-                        <p id="contacts-table-meta" class="text-xs text-slate-400 mt-3"></p>
                     </div>
-                    <div id="hub-data-suppression" class="hub-panel">
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <input id="sup-search" type="search" placeholder="Search…" class="flex-1 min-w-[200px] p-3 rounded-xl border border-slate-200" oninput="debouncedLoadSuppression()">
-                            <button type="button" onclick="loadSuppressionTable()" class="px-4 py-2 rounded-xl bg-slate-100 font-bold text-sm">Refresh</button>
-                        </div>
-                        <div class="overflow-x-auto rounded-xl border border-slate-200">
-                            <table class="w-full text-sm"><thead class="bg-slate-50 text-[10px] font-black uppercase text-slate-500"><tr>
-                                <th class="px-4 py-3">Email</th><th class="px-4 py-3">Status</th><th class="px-4 py-3">Actions</th>
-                            </tr></thead><tbody id="sup-table-body"></tbody></table>
-                        </div>
-                    </div>
-                    <div id="hub-data-users" class="hub-panel">
-                        <p id="users-admin-only" class="text-sm text-slate-500 mb-4 hidden">Admin access required for user management.</p>
-                        <div id="users-panel">
-                            <div class="bg-white p-6 rounded-2xl border border-slate-200 mb-6">
-                                <h3 class="text-sm font-black text-slate-400 uppercase mb-3">Invite user</h3>
-                                <div class="grid md:grid-cols-3 gap-3">
-                                    <input id="invite-email" type="email" placeholder="Email" class="p-3 rounded-xl border border-slate-200">
-                                    <select id="invite-role" class="p-3 rounded-xl border border-slate-200 bg-white"><option value="Manager">Manager</option><option value="Admin">Admin</option></select>
-                                    <button type="button" onclick="inviteUser()" class="bg-indigo-600 text-white font-black py-3 rounded-xl hover:bg-indigo-700">Invite</button>
-                                </div>
-                                <p id="invite-result" class="text-xs text-slate-500 mt-2"></p>
-                            </div>
-                            <div class="overflow-x-auto rounded-xl border border-slate-200">
-                                <table class="w-full text-sm"><thead class="bg-slate-50 text-[10px] font-black uppercase"><tr>
-                                    <th class="px-4 py-3">Email</th><th class="px-4 py-3">Role</th><th class="px-4 py-3">Active</th><th class="px-4 py-3">Actions</th>
-                                </tr></thead><tbody id="users-table-body"></tbody></table>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- B: Workflow Hub -->
-                <section id="section-cluster-workflow" class="cluster-root section-panel">
-                    <h2 class="text-2xl font-black text-slate-900 mb-4">Workflow Hub</h2>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <button type="button" class="wf-main-tab px-4 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white" data-wf="campaign">Campaign Orchestrator</button>
-                        <button type="button" class="wf-main-tab px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700" data-wf="import">Import Contacts</button>
+            <!-- B: Workflow Hub -->
+            <section id="section-cluster-workflow" class="cluster-root section-panel">
+                <h2 class="text-2xl font-black text-slate-900 mb-4">Workflow Hub</h2>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button type="button"
+                        class="wf-main-tab px-4 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white"
+                        data-wf="campaign">Campaign Orchestrator</button>
+                    <button type="button"
+                        class="wf-main-tab px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700"
+                        data-wf="import">Import Contacts</button>
+                </div>
+                <div id="wf-campaign" class="wf-panel">
+                    <div class="mb-4 h-2 bg-slate-200 rounded-full overflow-hidden">
+                        <div id="camp-wiz-progress" class="h-full bg-indigo-600 transition-all duration-300"
+                            style="width:25%"></div>
                     </div>
-                    <div id="wf-campaign" class="wf-panel">
-                        <div class="mb-4 h-2 bg-slate-200 rounded-full overflow-hidden">
-                            <div id="camp-wiz-progress" class="h-full bg-indigo-600 transition-all duration-300" style="width:25%"></div>
+                    <div class="flex justify-between mb-4">
+                        <button type="button" id="camp-wiz-back" onclick="campaignWizardStep(-1)"
+                            class="px-4 py-2 rounded-xl border border-slate-200 font-bold text-sm">Back</button>
+                        <span class="text-xs font-bold text-slate-500 self-center">Step <span id="camp-wiz-num">1</span>
+                            / 4</span>
+                        <button type="button" id="camp-wiz-next"
+                            class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-sm">Next</button>
+                    </div>
+                    <div id="camp-step-0"
+                        class="wiz-step is-open bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
+                        <h3 class="font-black text-slate-800">1. Campaign details</h3>
+                        <input id="camp-wiz-name" class="w-full p-3 rounded-xl border border-slate-200"
+                            placeholder="Campaign name">
+                        <input id="camp-wiz-subject" class="w-full p-3 rounded-xl border border-slate-200"
+                            placeholder="Subject line">
+                        <label class="text-xs font-bold text-slate-500 uppercase">Preview text
+                            (optional)</label>
+                        <textarea id="camp-wiz-preview" rows="2" class="w-full p-3 rounded-xl border border-slate-200"
+                            placeholder="Shown in inbox preview"></textarea>
+                    </div>
+                    <div id="camp-step-1" class="wiz-step bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
+                        <h3 class="font-black text-slate-800">2. Recipients</h3>
+                        <label class="text-xs font-bold text-slate-500 uppercase">Contact list</label>
+                        <select id="camp-wiz-list"
+                            class="w-full p-3 rounded-xl border border-slate-200 bg-white"></select>
+                        <p class="text-xs text-slate-500">Leave empty to target all active contacts.</p>
+                    </div>
+                    <div id="camp-step-2" class="wiz-step bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
+                        <h3 class="font-black text-slate-800">3. Design</h3>
+                        <div class="flex gap-2 flex-wrap">
+                            <select id="camp-wiz-template"
+                                class="flex-1 min-w-[200px] p-3 rounded-xl border border-slate-200 bg-white"></select>
+                            <button type="button" onclick="applyWizTemplate()"
+                                class="px-4 py-2 rounded-xl bg-slate-100 font-bold text-sm">Apply
+                                template</button>
                         </div>
-                        <div class="flex justify-between mb-4">
-                            <button type="button" id="camp-wiz-back" onclick="campaignWizardStep(-1)" class="px-4 py-2 rounded-xl border border-slate-200 font-bold text-sm">Back</button>
-                            <span class="text-xs font-bold text-slate-500 self-center">Step <span id="camp-wiz-num">1</span> / 4</span>
-                            <button type="button" id="camp-wiz-next" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-sm">Next</button>
+                        <p class="text-xs text-slate-500">Fine-tune copy in the editor below. For template
+                            assets open <strong>Specialty</strong> hub.</p>
+                        <div id="editor-campaign" class="rounded-xl border border-slate-200 bg-white"></div>
+                    </div>
+                    <div id="camp-step-3" class="wiz-step bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
+                        <h3 class="font-black text-slate-800">4. Review &amp; send</h3>
+                        <p id="camp-wiz-summary" class="text-sm text-slate-600 whitespace-pre-wrap"></p>
+                        <label class="text-xs font-bold text-slate-500 uppercase">Schedule
+                            (optional)</label>
+                        <input id="camp-wiz-schedule" type="datetime-local"
+                            class="w-full p-3 rounded-xl border border-slate-200">
+                        <div class="flex flex-wrap gap-3">
+                            <button type="button" onclick="saveCampaignDraft()"
+                                class="bg-slate-900 text-white font-black px-5 py-3 rounded-xl">Save
+                                draft</button>
+                            <button type="button" onclick="scheduleCampaign()"
+                                class="bg-amber-500 text-white font-black px-5 py-3 rounded-xl">Schedule</button>
+                            <button type="button" onclick="sendCampaignNow()"
+                                class="bg-emerald-600 text-white font-black px-5 py-3 rounded-xl">Send
+                                now</button>
                         </div>
-                        <div id="camp-step-0" class="wiz-step is-open bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
-                            <h3 class="font-black text-slate-800">1. Campaign details</h3>
-                            <input id="camp-wiz-name" class="w-full p-3 rounded-xl border border-slate-200" placeholder="Campaign name">
-                            <input id="camp-wiz-subject" class="w-full p-3 rounded-xl border border-slate-200" placeholder="Subject line">
-                            <label class="text-xs font-bold text-slate-500 uppercase">Preview text (optional)</label>
-                            <textarea id="camp-wiz-preview" rows="2" class="w-full p-3 rounded-xl border border-slate-200" placeholder="Shown in inbox preview"></textarea>
-                        </div>
-                        <div id="camp-step-1" class="wiz-step bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
-                            <h3 class="font-black text-slate-800">2. Recipients</h3>
-                            <label class="text-xs font-bold text-slate-500 uppercase">Contact list</label>
-                            <select id="camp-wiz-list" class="w-full p-3 rounded-xl border border-slate-200 bg-white"></select>
-                            <p class="text-xs text-slate-500">Leave empty to target all active contacts.</p>
-                        </div>
-                        <div id="camp-step-2" class="wiz-step bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
-                            <h3 class="font-black text-slate-800">3. Design</h3>
-                            <div class="flex gap-2 flex-wrap">
-                                <select id="camp-wiz-template" class="flex-1 min-w-[200px] p-3 rounded-xl border border-slate-200 bg-white"></select>
-                                <button type="button" onclick="applyWizTemplate()" class="px-4 py-2 rounded-xl bg-slate-100 font-bold text-sm">Apply template</button>
-                            </div>
-                            <p class="text-xs text-slate-500">Fine-tune copy in the editor below. For template assets open <strong>Specialty</strong> hub.</p>
-                            <div id="editor-campaign" class="rounded-xl border border-slate-200 bg-white"></div>
-                        </div>
-                        <div id="camp-step-3" class="wiz-step bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
-                            <h3 class="font-black text-slate-800">4. Review &amp; send</h3>
-                            <p id="camp-wiz-summary" class="text-sm text-slate-600 whitespace-pre-wrap"></p>
-                            <label class="text-xs font-bold text-slate-500 uppercase">Schedule (optional)</label>
-                            <input id="camp-wiz-schedule" type="datetime-local" class="w-full p-3 rounded-xl border border-slate-200">
-                            <div class="flex flex-wrap gap-3">
-                                <button type="button" onclick="saveCampaignDraft()" class="bg-slate-900 text-white font-black px-5 py-3 rounded-xl">Save draft</button>
-                                <button type="button" onclick="scheduleCampaign()" class="bg-amber-500 text-white font-black px-5 py-3 rounded-xl">Schedule</button>
-                                <button type="button" onclick="sendCampaignNow()" class="bg-emerald-600 text-white font-black px-5 py-3 rounded-xl">Send now</button>
-                            </div>
-                            <p id="camp-id-hint" class="text-xs text-slate-400">Save a draft first.</p>
+                        <p id="camp-id-hint" class="text-xs text-slate-400">Save a draft first.</p>
+                    </div>
+                </div>
+                <div id="wf-import" class="wf-panel hidden">
+                    <div class="mb-4 h-2 bg-slate-200 rounded-full overflow-hidden">
+                        <div id="imp-progress" class="h-full bg-indigo-600 transition-all" style="width:33%"></div>
+                    </div>
+                    <div class="flex justify-between mb-4">
+                        <button type="button" onclick="importWizardStep(-1)"
+                            class="px-4 py-2 rounded-xl border font-bold text-sm">Back</button>
+                        <span class="text-xs font-bold text-slate-500">Step <span id="imp-step-num">1</span>
+                            / 3</span>
+                        <button type="button" onclick="importWizardStep(1)"
+                            class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-sm">Next</button>
+                    </div>
+                    <div id="imp-step-0" class="imp-step is-open bg-white p-6 rounded-2xl border space-y-4">
+                        <h3 class="font-black">1. File</h3>
+                        <label class="text-xs font-bold uppercase text-slate-500">List name</label>
+                        <input id="list-name" type="text" value="Default"
+                            class="w-full p-3 rounded-xl border border-slate-200">
+                        <input type="file" id="csvFile" class="hidden" onchange="onCsvFile(event)">
+                        <button type="button" onclick="document.getElementById('csvFile').click()"
+                            class="bg-slate-100 px-4 py-2 rounded-xl font-bold">Select CSV</button>
+                        <p id="fileNameDisplay" class="text-xs text-slate-400">No file</p>
+                    </div>
+                    <div id="imp-step-1" class="imp-step hidden bg-white p-6 rounded-2xl border space-y-4">
+                        <h3 class="font-black">2. Preview (first 10 rows)</h3>
+                        <p class="text-xs text-slate-500">Column mapping is informational; server expects
+                            email, first_name, last_name columns.</p>
+                        <div class="overflow-x-auto rounded-xl border max-h-48 overflow-y-auto">
+                            <table class="w-full text-xs">
+                                <thead id="imp-preview-head"></thead>
+                                <tbody id="imp-preview-body"></tbody>
+                            </table>
                         </div>
                     </div>
-                    <div id="wf-import" class="wf-panel hidden">
-                        <div class="mb-4 h-2 bg-slate-200 rounded-full overflow-hidden"><div id="imp-progress" class="h-full bg-indigo-600 transition-all" style="width:33%"></div></div>
-                        <div class="flex justify-between mb-4">
-                            <button type="button" onclick="importWizardStep(-1)" class="px-4 py-2 rounded-xl border font-bold text-sm">Back</button>
-                            <span class="text-xs font-bold text-slate-500">Step <span id="imp-step-num">1</span> / 3</span>
-                            <button type="button" onclick="importWizardStep(1)" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-sm">Next</button>
-                        </div>
-                        <div id="imp-step-0" class="imp-step is-open bg-white p-6 rounded-2xl border space-y-4">
-                            <h3 class="font-black">1. File</h3>
-                            <label class="text-xs font-bold uppercase text-slate-500">List name</label>
-                            <input id="list-name" type="text" value="Default" class="w-full p-3 rounded-xl border border-slate-200">
-                            <input type="file" id="csvFile" class="hidden" onchange="onCsvFile(event)">
-                            <button type="button" onclick="document.getElementById('csvFile').click()" class="bg-slate-100 px-4 py-2 rounded-xl font-bold">Select CSV</button>
-                            <p id="fileNameDisplay" class="text-xs text-slate-400">No file</p>
-                        </div>
-                        <div id="imp-step-1" class="imp-step hidden bg-white p-6 rounded-2xl border space-y-4">
-                            <h3 class="font-black">2. Preview (first 10 rows)</h3>
-                            <p class="text-xs text-slate-500">Column mapping is informational; server expects email, first_name, last_name columns.</p>
-                            <div class="overflow-x-auto rounded-xl border max-h-48 overflow-y-auto">
-                                <table class="w-full text-xs"><thead id="imp-preview-head"></thead><tbody id="imp-preview-body"></tbody></table>
-                            </div>
-                        </div>
-                        <div id="imp-step-2" class="imp-step hidden bg-white p-6 rounded-2xl border space-y-4">
-                            <h3 class="font-black">3. Import</h3>
-                            <button type="button" onclick="uploadCSV()" class="w-full bg-slate-900 text-white font-black py-4 rounded-2xl">Run import</button>
-                        </div>
+                    <div id="imp-step-2" class="imp-step hidden bg-white p-6 rounded-2xl border space-y-4">
+                        <h3 class="font-black">3. Import</h3>
+                        <button type="button" onclick="uploadCSV()"
+                            class="w-full bg-slate-900 text-white font-black py-4 rounded-2xl">Run
+                            import</button>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- C: Analytics Hub -->
-                <section id="section-cluster-analytics" class="cluster-root section-panel is-active">
-                    <h2 class="text-2xl font-black text-slate-900 mb-4">Analytics Hub</h2>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <button type="button" class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white" data-hub="analytics" data-tab="dash">Dashboard</button>
-                        <button type="button" class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700" data-hub="analytics" data-tab="insights">Insights</button>
-                        <button type="button" class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700" data-hub="analytics" data-tab="creport">Campaign report</button>
+            <!-- C: Analytics Hub -->
+            <section id="section-cluster-analytics" class="cluster-root section-panel is-active">
+                <h2 class="text-2xl font-black text-slate-900 mb-4">Analytics Hub</h2>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button type="button"
+                        class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white"
+                        data-hub="analytics" data-tab="dash">Dashboard</button>
+                    <button type="button"
+                        class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700"
+                        data-hub="analytics" data-tab="insights">Insights</button>
+                    <button type="button"
+                        class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700"
+                        data-hub="analytics" data-tab="creport">Campaign report</button>
+                </div>
+                <div id="hub-analytics-dash" class="hub-panel is-open">
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6" id="kpi-mount">
                     </div>
-                    <div id="hub-analytics-dash" class="hub-panel is-open">
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6" id="kpi-mount"></div>
-                        <div class="grid md:grid-cols-2 gap-6 mb-6">
-                            <div class="bg-white p-6 rounded-2xl border border-slate-200">
-                                <h3 class="text-xs font-black text-slate-400 uppercase mb-2">Delivery &amp; engagement</h3>
-                                <div id="chart-dash-bar-wrap" class="min-h-[220px]"><canvas id="chart-dash-bar"></canvas></div>
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                            <h3 class="text-xs font-black text-slate-400 uppercase mb-2">Delivery &amp;
+                                engagement</h3>
+                            <div id="chart-dash-bar-wrap" class="min-h-[220px]"><canvas id="chart-dash-bar"></canvas>
                             </div>
-                            <div class="bg-white p-6 rounded-2xl border border-slate-200">
-                                <h3 class="text-xs font-black text-slate-400 uppercase mb-2">Open vs click rate</h3>
-                                <div id="chart-dash-rate-wrap" class="min-h-[220px]"><canvas id="chart-dash-rate"></canvas></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                            <h3 class="text-xs font-black text-slate-400 uppercase mb-2">Open vs click rate
+                            </h3>
+                            <div id="chart-dash-rate-wrap" class="min-h-[220px]"><canvas id="chart-dash-rate"></canvas>
                             </div>
                         </div>
-                        <div class="bg-slate-900 rounded-[2rem] p-6 shadow-xl">
-                            <div class="flex justify-between items-center mb-3">
-                                <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Activity</h4>
-                                <button type="button" onclick="updateStats(); processDue(); loadDashboardCharts();" class="text-[10px] text-slate-400 hover:text-white underline">Refresh</button>
-                            </div>
-                            <div id="terminal" class="font-mono text-emerald-400 text-xs h-32 overflow-y-auto"></div>
+                    </div>
+                    <div class="bg-slate-900 rounded-[2rem] p-6 shadow-xl">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                                Activity</h4>
+                            <button type="button" onclick="updateStats(); processDue(); loadDashboardCharts();"
+                                class="text-[10px] text-slate-400 hover:text-white underline">Refresh</button>
+                        </div>
+                        <div id="terminal" class="font-mono text-emerald-400 text-xs h-32 overflow-y-auto">
                         </div>
                     </div>
-                    <div id="hub-analytics-insights" class="hub-panel">
-                        <div class="bg-white p-6 rounded-2xl border border-slate-200 mb-6">
-                            <h3 class="text-sm font-black text-slate-400 uppercase mb-4">Overview</h3>
-                            <div id="chart-reports-wrap" class="mb-6"><canvas id="chart-reports"></canvas></div>
-                            <h3 class="text-sm font-black text-slate-400 uppercase mb-2">Live activity</h3>
-                            <ul id="reports-activity-feed" class="text-sm border border-slate-100 rounded-xl divide-y max-h-64 overflow-y-auto"></ul>
-                        </div>
+                </div>
+                <div id="hub-analytics-insights" class="hub-panel">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 mb-6">
+                        <h3 class="text-sm font-black text-slate-400 uppercase mb-4">Overview</h3>
+                        <div id="chart-reports-wrap" class="mb-6"><canvas id="chart-reports"></canvas></div>
+                        <h3 class="text-sm font-black text-slate-400 uppercase mb-2">Live activity</h3>
+                        <ul id="reports-activity-feed"
+                            class="text-sm border border-slate-100 rounded-xl divide-y max-h-64 overflow-y-auto">
+                        </ul>
                     </div>
-                    <div id="hub-analytics-creport" class="hub-panel">
-                        <div class="flex gap-3 mb-4 flex-wrap">
-                            <select id="report-campaign-pick" class="p-3 rounded-xl border border-slate-200 bg-white min-w-[240px]"></select>
-                            <button type="button" onclick="loadCampaignReport()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold">Load report</button>
-                        </div>
-                        <div id="campaign-report-box" class="bg-white p-6 rounded-2xl border border-slate-200 text-sm text-slate-600"></div>
+                </div>
+                <div id="hub-analytics-creport" class="hub-panel">
+                    <div class="flex gap-3 mb-4 flex-wrap">
+                        <select id="report-campaign-pick"
+                            class="p-3 rounded-xl border border-slate-200 bg-white min-w-[240px]"></select>
+                        <button type="button" onclick="loadCampaignReport()"
+                            class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold">Load
+                            report</button>
                     </div>
-                </section>
+                    <div id="campaign-report-box"
+                        class="bg-white p-6 rounded-2xl border border-slate-200 text-sm text-slate-600">
+                    </div>
+                </div>
+            </section>
 
-                <!-- D+E: Studio -->
-                <section id="section-cluster-studio" class="cluster-root section-panel">
-                    <h2 class="text-2xl font-black text-slate-900 mb-4">Studio &amp; Settings</h2>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <button type="button" class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white" data-hub="studio" data-tab="lib">Template library</button>
-                        <button type="button" class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700" data-hub="studio" data-tab="org">Organisation</button>
+            <!-- D+E: Studio -->
+            <section id="section-cluster-studio" class="cluster-root section-panel">
+                <h2 class="text-2xl font-black text-slate-900 mb-4">Studio &amp; Settings</h2>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button type="button"
+                        class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white"
+                        data-hub="studio" data-tab="lib">Template library</button>
+                    <button type="button"
+                        class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700"
+                        data-hub="studio" data-tab="org">Organisation</button>
+                </div>
+                <div id="hub-studio-lib" class="hub-panel is-open">
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        <input id="tpl-lib-search" type="search" placeholder="Search templates…"
+                            class="flex-1 p-3 rounded-xl border border-slate-200" oninput="renderTemplateGrid()">
+                        <button type="button" onclick="seedStarters()"
+                            class="px-4 py-2 rounded-xl bg-slate-100 font-bold text-sm">Seed starter
+                            templates</button>
+                        <button type="button" onclick="loadTemplatesForGrid()"
+                            class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-sm">Refresh</button>
                     </div>
-                    <div id="hub-studio-lib" class="hub-panel is-open">
-                        <div class="flex flex-wrap gap-3 mb-4">
-                            <input id="tpl-lib-search" type="search" placeholder="Search templates…" class="flex-1 p-3 rounded-xl border border-slate-200" oninput="renderTemplateGrid()">
-                            <button type="button" onclick="seedStarters()" class="px-4 py-2 rounded-xl bg-slate-100 font-bold text-sm">Seed starter templates</button>
-                            <button type="button" onclick="loadTemplatesForGrid()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-sm">Refresh</button>
+                    <div id="template-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                </div>
+                <div id="hub-studio-org" class="hub-panel">
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200 space-y-4 max-w-2xl">
+                        <label class="text-xs font-bold uppercase text-slate-500">Organisation name</label>
+                        <input id="org-name" class="w-full p-3 rounded-xl border border-slate-200">
+                        <label class="text-xs font-bold uppercase text-slate-500">Logo URL</label>
+                        <input id="org-logo" class="w-full p-3 rounded-xl border border-slate-200">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div><label class="text-xs font-bold uppercase text-slate-500">Default from
+                                    name</label><input id="org-from-name"
+                                    class="w-full p-3 rounded-xl border border-slate-200"></div>
+                            <div><label class="text-xs font-bold uppercase text-slate-500">Default from
+                                    email</label><input id="org-from-email"
+                                    class="w-full p-3 rounded-xl border border-slate-200"></div>
                         </div>
-                        <div id="template-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                        <label class="text-xs font-bold uppercase text-slate-500">AWS SES region
+                            (placeholder)</label>
+                        <input id="org-ses-region" class="w-full p-3 rounded-xl border border-slate-200"
+                            placeholder="e.g. us-east-1">
+                        <label class="text-xs font-bold uppercase text-slate-500">Notes</label>
+                        <textarea id="org-ses-note" rows="2"
+                            class="w-full p-3 rounded-xl border border-slate-200"></textarea>
+                        <button type="button" onclick="saveOrgSettings()"
+                            class="bg-indigo-600 text-white font-black px-6 py-3 rounded-xl hover:bg-indigo-700">Save</button>
                     </div>
-                    <div id="hub-studio-org" class="hub-panel">
-                        <div class="bg-white p-8 rounded-2xl border border-slate-200 space-y-4 max-w-2xl">
-                            <label class="text-xs font-bold uppercase text-slate-500">Organisation name</label>
-                            <input id="org-name" class="w-full p-3 rounded-xl border border-slate-200">
-                            <label class="text-xs font-bold uppercase text-slate-500">Logo URL</label>
-                            <input id="org-logo" class="w-full p-3 rounded-xl border border-slate-200">
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <div><label class="text-xs font-bold uppercase text-slate-500">Default from name</label><input id="org-from-name" class="w-full p-3 rounded-xl border border-slate-200"></div>
-                                <div><label class="text-xs font-bold uppercase text-slate-500">Default from email</label><input id="org-from-email" class="w-full p-3 rounded-xl border border-slate-200"></div>
-                            </div>
-                            <label class="text-xs font-bold uppercase text-slate-500">AWS SES region (placeholder)</label>
-                            <input id="org-ses-region" class="w-full p-3 rounded-xl border border-slate-200" placeholder="e.g. us-east-1">
-                            <label class="text-xs font-bold uppercase text-slate-500">Notes</label>
-                            <textarea id="org-ses-note" rows="2" class="w-full p-3 rounded-xl border border-slate-200"></textarea>
-                            <button type="button" onclick="saveOrgSettings()" class="bg-indigo-600 text-white font-black px-6 py-3 rounded-xl hover:bg-indigo-700">Save</button>
-                        </div>
-                    </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- F: Specialty -->
-                <section id="section-cluster-specialty" class="cluster-root section-panel">
-                    <h2 class="text-2xl font-black text-slate-900 mb-4">Specialty</h2>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <button type="button" class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white" data-hub="specialty" data-tab="seg">Segments</button>
-                        <button type="button" class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700" data-hub="specialty" data-tab="editor">Template editor</button>
+            <!-- F: Specialty -->
+            <section id="section-cluster-specialty" class="cluster-root section-panel">
+                <h2 class="text-2xl font-black text-slate-900 mb-4">Specialty</h2>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button type="button"
+                        class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white"
+                        data-hub="specialty" data-tab="seg">Segments</button>
+                    <button type="button"
+                        class="hub-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 text-slate-700"
+                        data-hub="specialty" data-tab="editor">Template editor</button>
+                </div>
+                <div id="hub-specialty-seg" class="hub-panel is-open">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 max-w-lg">
+                        <label class="text-xs font-bold uppercase text-slate-500">Rule: status
+                            equals</label>
+                        <select id="seg-status" class="w-full p-3 rounded-xl border border-slate-200 mt-2 mb-4"
+                            onchange="loadSegmentPreview()">
+                            <option value="active">Active</option>
+                            <option value="unsubscribed">Unsubscribed</option>
+                            <option value="bounced">Bounced</option>
+                        </select>
+                        <p class="text-3xl font-black text-indigo-600"><span id="seg-count">0</span> <span
+                                class="text-sm font-bold text-slate-500">contacts</span></p>
                     </div>
-                    <div id="hub-specialty-seg" class="hub-panel is-open">
-                        <div class="bg-white p-6 rounded-2xl border border-slate-200 max-w-lg">
-                            <label class="text-xs font-bold uppercase text-slate-500">Rule: status equals</label>
-                            <select id="seg-status" class="w-full p-3 rounded-xl border border-slate-200 mt-2 mb-4" onchange="loadSegmentPreview()">
-                                <option value="active">Active</option>
-                                <option value="unsubscribed">Unsubscribed</option>
-                                <option value="bounced">Bounced</option>
-                            </select>
-                            <p class="text-3xl font-black text-indigo-600"><span id="seg-count">0</span> <span class="text-sm font-bold text-slate-500">contacts</span></p>
-                        </div>
+                </div>
+                <div id="hub-specialty-editor" class="hub-panel">
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200">
+                        <input id="tpl-name" type="text" class="w-full p-3 rounded-xl border border-slate-200 mb-4"
+                            placeholder="Template name">
+                        <div id="editor-template" class="rounded-xl border border-slate-200 mb-4"></div>
+                        <button type="button" onclick="saveTemplate()"
+                            class="bg-indigo-600 text-white font-black px-6 py-3 rounded-xl hover:bg-indigo-700">Save
+                            template</button>
                     </div>
-                    <div id="hub-specialty-editor" class="hub-panel">
-                        <div class="bg-white p-8 rounded-2xl border border-slate-200">
-                            <input id="tpl-name" type="text" class="w-full p-3 rounded-xl border border-slate-200 mb-4" placeholder="Template name">
-                            <div id="editor-template" class="rounded-xl border border-slate-200 mb-4"></div>
-                            <button type="button" onclick="saveTemplate()" class="bg-indigo-600 text-white font-black px-6 py-3 rounded-xl hover:bg-indigo-700">Save template</button>
-                        </div>
-                    </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- System -->
-                <section id="section-cluster-system" class="cluster-root section-panel">
-                    <h2 class="text-2xl font-black text-slate-900 mb-6">System</h2>
-                    <div class="bg-white p-8 rounded-2xl border border-slate-200 space-y-4 max-w-xl">
-                        <p class="text-sm text-slate-600">SMTP credentials are configured on the server in <code class="bg-slate-100 px-1 rounded">app.py</code>. Tracking uses <code class="bg-slate-100 px-1 rounded">PUBLIC_BASE_URL</code>.</p>
-                        <button type="button" onclick="doLogout()" class="bg-slate-900 text-white font-black px-6 py-3 rounded-xl hover:bg-black">Logout</button>
-                    </div>
-                </section>
-            </main>
-        </div>
+            <!-- System -->
+            <section id="section-cluster-system" class="cluster-root section-panel">
+                <h2 class="text-2xl font-black text-slate-900 mb-6">System</h2>
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 space-y-4 max-w-xl">
+                    <p class="text-sm text-slate-600">SMTP credentials are configured on the server in <code
+                            class="bg-slate-100 px-1 rounded">app.py</code>. Tracking uses <code
+                            class="bg-slate-100 px-1 rounded">PUBLIC_BASE_URL</code>.</p>
+                    <button type="button" onclick="doLogout()"
+                        class="bg-slate-900 text-white font-black px-6 py-3 rounded-xl hover:bg-black">Logout</button>
+                </div>
+            </section>
+        </main>
     </div>
+</div>
 
-    <script>
-(function () {
+<script>
+    (function () {
         const term = () => document.getElementById('terminal');
         let quillTemplate = null;
         let quillCampaign = null;
@@ -1153,7 +1381,8 @@
         window.updateStats = updateStats;
         window.processDue = processDue;
         window.loadDashboardCharts = loadDashboardCharts;
-})();
-    </script>
+    })();
+</script>
 </body>
+
 </html>
